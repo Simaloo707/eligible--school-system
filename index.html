@@ -1,40 +1,217 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Eligible Pre & Primary School</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Eligible Pre & Primary School - Admission</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6f9;
+            color: #263238;
+        }
+
+        .header {
+            background: #0b4f8a;
+            color: white;
+            text-align: center;
+            padding: 28px 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #0b4f8a;
+            margin-top: 0;
+        }
+
+        .intro {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: #0b4f8a;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 7px;
+            margin-top: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 16px;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .radio-group {
+            margin-top: 8px;
+        }
+
+        .radio-group label {
+            display: inline-block;
+            font-weight: normal;
+            margin-right: 18px;
+        }
+
+        .radio-group input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 28px;
+            padding: 14px;
+            background: #0b4f8a;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .notice {
+            margin-top: 18px;
+            padding: 12px;
+            background: #f4f7fa;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Eligible Pre & Primary School</h1>
-    <h2>Online Admission Application</h2>
+    <div class="header">
+        <h1>Eligible Pre & Primary School</h1>
+        <p>Quality Education, Bright Futures</p>
+    </div>
 
-    <p>Welcome to our online student admission system.</p>
+    <div class="container">
+        <div class="card">
 
-    <form>
-        <label>Student's Full Name:</label><br>
-        <input type="text"><br><br>
+            <h2>Online Admission Application</h2>
 
-        <label>Date of Birth:</label><br>
-        <input type="date"><br><br>
+            <p class="intro">
+                Please complete the form below to apply for admission.
+            </p>
 
-        <label>Parent/Guardian Name:</label><br>
-        <input type="text"><br><br>
+            <form>
 
-        <label>Parent Phone Number:</label><br>
-        <input type="tel"><br><br>
+                <h3 class="section-title">Student Information</h3>
 
-        <label>Class Applying For:</label><br>
-        <select>
-            <option>Pre-Primary</option>
-            <option>Standard I</option>
-            <option>Standard II</option>
-            <option>Standard III</option>
-            <option>Standard IV</option>
-        </select><br><br>
+                <label>Student's Full Name</label>
+                <input type="text" placeholder="Enter student's full name">
 
-        <button type="button">Submit Application</button>
-    </form>
+                <label>Date of Birth</label>
+                <input type="date">
+
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="gender"> Male
+                    </label>
+
+                    <label>
+                        <input type="radio" name="gender"> Female
+                    </label>
+                </div>
+
+                <label>Class Applying For</label>
+                <select>
+                    <option value="">Select class</option>
+                    <option>Pre-Primary</option>
+                    <option>Standard I</option>
+                    <option>Standard II</option>
+                    <option>Standard III</option>
+                    <option>Standard IV</option>
+                </select>
+
+                <label>Application Type</label>
+                <select>
+                    <option value="">Select application type</option>
+                    <option>New Admission</option>
+                    <option>Transfer Student</option>
+                </select>
+
+                <label>Previous School (if applicable)</label>
+                <input type="text" placeholder="Previous school">
+
+                <h3 class="section-title">Parent / Guardian Information</h3>
+
+                <label>Parent / Guardian Full Name</label>
+                <input type="text" placeholder="Enter full name">
+
+                <label>Phone Number</label>
+                <input type="tel" placeholder="+255">
+
+                <label>Email Address</label>
+                <input type="email" placeholder="example@email.com">
+
+                <button type="button">Submit Application</button>
+
+            </form>
+
+            <div class="notice">
+                This is currently a demonstration form. Information entered
+                here is not yet submitted or stored.
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        Eligible Pre & Primary School<br>
+        Quality Education, Bright Futures
+    </footer>
 
 </body>
 </html>
