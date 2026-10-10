@@ -74,13 +74,43 @@
             margin-bottom: 6px;
         }
 
+        .required::after {
+            content: " *";
+            color: #d32f2f;
+        }
+
         input,
         select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #bbb;
+            border: 2px solid #bbb;
             border-radius: 6px;
             font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0b4f8a;
+            box-shadow: 0 0 5px rgba(11, 79, 138, 0.2);
+        }
+
+        input.error,
+        select.error {
+            border-color: #d32f2f;
+        }
+
+        .error-message {
+            display: none;
+            color: #d32f2f;
+            font-size: 13px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+        }
+
+        .error-message.show {
+            display: block;
         }
 
         .radio-group {
@@ -108,6 +138,16 @@
             border-radius: 7px;
             font-size: 17px;
             font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #083d6d;
+        }
+
+        button:active {
+            background: #062a50;
         }
 
         .notice {
@@ -119,11 +159,54 @@
             color: #555;
         }
 
+        .success-message {
+            display: none;
+            padding: 14px;
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            border-radius: 6px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
         footer {
             text-align: center;
             padding: 25px 15px;
             font-size: 13px;
             color: #666;
+        }
+
+        .form-errors {
+            display: none;
+            padding: 14px;
+            background: #ffebee;
+            border: 1px solid #ef5350;
+            border-radius: 6px;
+            color: #c62828;
+            margin-bottom: 20px;
+        }
+
+        .form-errors.show {
+            display: block;
+        }
+
+        .form-errors h4 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .form-errors ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .form-errors li {
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -144,29 +227,41 @@
                 Please complete the form below to apply for admission.
             </p>
 
-            <form>
+            <div class="form-errors" id="formErrors">
+                <h4>Please fix the following errors:</h4>
+                <ul id="errorList"></ul>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                ✓ Application submitted successfully! (Test mode - no data stored)
+            </div>
+
+            <form id="admissionForm">
 
                 <h3 class="section-title">Student Information</h3>
 
-                <label>Student's Full Name</label>
-                <input type="text" placeholder="Enter student's full name">
+                <label for="studentName" class="required">Student's Full Name</label>
+                <input type="text" id="studentName" name="studentName" placeholder="Enter student's full name">
+                <div class="error-message" id="studentNameError"></div>
 
-                <label>Date of Birth</label>
-                <input type="date">
+                <label for="dob" class="required">Date of Birth</label>
+                <input type="date" id="dob" name="dob">
+                <div class="error-message" id="dobError"></div>
 
-                <label>Gender</label>
+                <label class="required">Gender</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="gender"> Male
+                        <input type="radio" name="gender" value="male"> Male
                     </label>
 
                     <label>
-                        <input type="radio" name="gender"> Female
+                        <input type="radio" name="gender" value="female"> Female
                     </label>
                 </div>
+                <div class="error-message" id="genderError"></div>
 
-                <label>Class Applying For</label>
-                <select>
+                <label for="classApplying" class="required">Class Applying For</label>
+                <select id="classApplying" name="classApplying">
                     <option value="">Select class</option>
                     <option>Pre-Primary</option>
                     <option>Standard I</option>
@@ -174,35 +269,40 @@
                     <option>Standard III</option>
                     <option>Standard IV</option>
                 </select>
+                <div class="error-message" id="classApplyingError"></div>
 
-                <label>Application Type</label>
-                <select>
+                <label for="applicationType" class="required">Application Type</label>
+                <select id="applicationType" name="applicationType">
                     <option value="">Select application type</option>
                     <option>New Admission</option>
                     <option>Transfer Student</option>
                 </select>
+                <div class="error-message" id="applicationTypeError"></div>
 
-                <label>Previous School (if applicable)</label>
-                <input type="text" placeholder="Previous school">
+                <label for="previousSchool">Previous School (if applicable)</label>
+                <input type="text" id="previousSchool" name="previousSchool" placeholder="Previous school">
 
                 <h3 class="section-title">Parent / Guardian Information</h3>
 
-                <label>Parent / Guardian Full Name</label>
-                <input type="text" placeholder="Enter full name">
+                <label for="parentName" class="required">Parent / Guardian Full Name</label>
+                <input type="text" id="parentName" name="parentName" placeholder="Enter full name">
+                <div class="error-message" id="parentNameError"></div>
 
-                <label>Phone Number</label>
-                <input type="tel" placeholder="+255">
+                <label for="phoneNumber" class="required">Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="0712345678 or +255712345678">
+                <div class="error-message" id="phoneNumberError"></div>
 
-                <label>Email Address</label>
-                <input type="email" placeholder="example@email.com">
+                <label for="email">Email Address (optional)</label>
+                <input type="email" id="email" name="email" placeholder="example@email.com">
+                <div class="error-message" id="emailError"></div>
 
-                <button type="button">Submit Application</button>
+                <button type="submit">Submit Application</button>
 
             </form>
 
             <div class="notice">
-                This is currently a demonstration form. Information entered
-                here is not yet submitted or stored.
+                This is a demonstration form for testing. Information entered
+                here is not stored in any database.
             </div>
 
         </div>
@@ -212,6 +312,204 @@
         Eligible Pre & Primary School<br>
         Quality Education, Bright Futures
     </footer>
+
+    <script>
+        const translations = {
+            studentNameRequired: {
+                en: "Student's full name is required.",
+                sw: "Jina kamili la mwanafunzi linahitajika."
+            },
+            parentNameRequired: {
+                en: "Parent's or guardian's full name is required.",
+                sw: "Jina kamili la mzazi au mlezi linahitajika."
+            },
+            phoneInvalid: {
+                en: "Phone number must be in format: 0712345678 or +255712345678",
+                sw: "Nambari ya simu lazima iwe katika muundo: 0712345678 au +255712345678"
+            },
+            emailInvalid: {
+                en: "Email address format is invalid.",
+                sw: "Muundo wa anwani ya barua pepe si sahihi."
+            },
+            dobRequired: {
+                en: "Date of birth is required.",
+                sw: "Tarehe ya kuzaliwa inahitajika."
+            },
+            dobFuture: {
+                en: "Date of birth cannot be in the future.",
+                sw: "Tarehe ya kuzaliwa haiwezi kuwa katika siku za baadaye."
+            },
+            classRequired: {
+                en: "Please select a class.",
+                sw: "Tafadhali chagua darasa."
+            },
+            typeRequired: {
+                en: "Please select an application type.",
+                sw: "Tafadhali chagua aina ya ombi."
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function isValidTanzanianPhone(phone) {
+            const cleaned = phone.replace(/[\s-]/g, '');
+            const tanzanianPhoneRegex = /^(0\d{9}|\+255\d{9})$/;
+            return tanzanianPhoneRegex.test(cleaned);
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function setError(fieldId, messageKey) {
+            const input = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            input.classList.add('error');
+            errorDiv.textContent = translations[messageKey][currentLanguage];
+            errorDiv.classList.add('show');
+            return false;
+        }
+
+        function clearError(fieldId) {
+            const input = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            input.classList.remove('error');
+            errorDiv.classList.remove('show');
+            return true;
+        }
+
+        function validateStudentName() {
+            const input = document.getElementById('studentName');
+            const value = input.value.trim();
+            if (value === '') return setError('studentName', 'studentNameRequired');
+            return clearError('studentName');
+        }
+
+        function validateParentName() {
+            const input = document.getElementById('parentName');
+            const value = input.value.trim();
+            if (value === '') return setError('parentName', 'parentNameRequired');
+            return clearError('parentName');
+        }
+
+        function validatePhoneNumber() {
+            const input = document.getElementById('phoneNumber');
+            const value = input.value.trim();
+            if (value === '') return setError('phoneNumber', 'phoneInvalid');
+            if (!isValidTanzanianPhone(value)) return setError('phoneNumber', 'phoneInvalid');
+            return clearError('phoneNumber');
+        }
+
+        function validateEmail() {
+            const input = document.getElementById('email');
+            const value = input.value.trim();
+            if (value === '') {
+                input.classList.remove('error');
+                document.getElementById('emailError').classList.remove('show');
+                return true;
+            }
+            if (!isValidEmail(value)) return setError('email', 'emailInvalid');
+            return clearError('email');
+        }
+
+        function validateDateOfBirth() {
+            const input = document.getElementById('dob');
+            const value = input.value;
+            if (value === '') return setError('dob', 'dobRequired');
+
+            const selectedDate = new Date(value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate > today) return setError('dob', 'dobFuture');
+            return clearError('dob');
+        }
+
+        function validateClassApplying() {
+            const input = document.getElementById('classApplying');
+            if (input.value === '') return setError('classApplying', 'classRequired');
+            return clearError('classApplying');
+        }
+
+        function validateApplicationType() {
+            const input = document.getElementById('applicationType');
+            if (input.value === '') return setError('applicationType', 'typeRequired');
+            return clearError('applicationType');
+        }
+
+        document.getElementById('studentName').addEventListener('blur', validateStudentName);
+        document.getElementById('parentName').addEventListener('blur', validateParentName);
+        document.getElementById('phoneNumber').addEventListener('blur', validatePhoneNumber);
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('dob').addEventListener('blur', validateDateOfBirth);
+        document.getElementById('classApplying').addEventListener('change', validateClassApplying);
+        document.getElementById('applicationType').addEventListener('change', validateApplicationType);
+
+        document.getElementById('admissionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formErrors = document.getElementById('formErrors');
+            const errorList = document.getElementById('errorList');
+            const successDiv = document.getElementById('successMessage');
+
+            formErrors.classList.remove('show');
+            errorList.innerHTML = '';
+            successDiv.classList.remove('show');
+
+            const results = [
+                validateStudentName(),
+                validateParentName(),
+                validatePhoneNumber(),
+                validateEmail(),
+                validateDateOfBirth(),
+                validateClassApplying(),
+                validateApplicationType()
+            ];
+
+            if (results.every(Boolean)) {
+                successDiv.classList.add('show');
+                console.log('Test form data captured:', {
+                    studentName: document.getElementById('studentName').value.trim(),
+                    dob: document.getElementById('dob').value,
+                    gender: document.querySelector('input[name="gender"]:checked')?.value,
+                    classApplying: document.getElementById('classApplying').value,
+                    applicationType: document.getElementById('applicationType').value,
+                    previousSchool: document.getElementById('previousSchool').value.trim(),
+                    parentName: document.getElementById('parentName').value.trim(),
+                    phoneNumber: document.getElementById('phoneNumber').value.trim(),
+                    email: document.getElementById('email').value.trim()
+                });
+                return;
+            }
+
+            const errorMessages = [
+                translations.studentNameRequired[currentLanguage],
+                translations.parentNameRequired[currentLanguage],
+                translations.phoneInvalid[currentLanguage],
+                translations.emailInvalid[currentLanguage],
+                translations.dobRequired[currentLanguage],
+                translations.classRequired[currentLanguage],
+                translations.typeRequired[currentLanguage]
+            ];
+
+            const fieldsToCheck = [
+                'studentName', 'parentName', 'phoneNumber', 'email', 'dob', 'classApplying', 'applicationType'
+            ];
+
+            fieldsToCheck.forEach((field, index) => {
+                const input = document.getElementById(field);
+                if (input.classList.contains('error')) {
+                    const li = document.createElement('li');
+                    li.textContent = errorMessages[index];
+                    errorList.appendChild(li);
+                }
+            });
+
+            formErrors.classList.add('show');
+            formErrors.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
 
 </body>
 </html>
