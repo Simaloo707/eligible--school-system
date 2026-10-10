@@ -48,6 +48,39 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .language-switcher button {
+            width: auto;
+            padding: 8px 16px;
+            margin: 0;
+            background: #e0e0e0;
+            color: #333;
+            border: 2px solid #bbb;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .language-switcher button.active {
+            background: #0b4f8a;
+            color: white;
+            border-color: #0b4f8a;
+        }
+
+        .language-switcher button:hover:not(.active) {
+            background: #d0d0d0;
+        }
+
         .card h2 {
             text-align: center;
             color: #0b4f8a;
@@ -128,7 +161,7 @@
             margin-right: 5px;
         }
 
-        button {
+        button[type="submit"] {
             width: 100%;
             margin-top: 28px;
             padding: 14px;
@@ -142,11 +175,11 @@
             transition: background 0.3s;
         }
 
-        button:hover {
+        button[type="submit"]:hover {
             background: #083d6d;
         }
 
-        button:active {
+        button[type="submit"]:active {
             background: #062a50;
         }
 
@@ -221,86 +254,91 @@
     <div class="container">
         <div class="card">
 
-            <h2>Online Admission Application</h2>
+            <div class="language-switcher">
+                <button id="langEnglish" class="lang-btn active" data-lang="en">English</button>
+                <button id="langKiswahili" class="lang-btn" data-lang="sw">Kiswahili</button>
+            </div>
 
-            <p class="intro">
+            <h2 id="pageTitle">Online Admission Application</h2>
+
+            <p class="intro" id="pageIntro">
                 Please complete the form below to apply for admission.
             </p>
 
             <div class="form-errors" id="formErrors">
-                <h4>Please fix the following errors:</h4>
+                <h4 id="errorHeading">Please fix the following errors:</h4>
                 <ul id="errorList"></ul>
             </div>
 
             <div class="success-message" id="successMessage">
-                ✓ Application submitted successfully! (Test mode - no data stored)
+                <span id="successText">✓ Application submitted successfully! (Test mode - no data stored)</span>
             </div>
 
             <form id="admissionForm">
 
-                <h3 class="section-title">Student Information</h3>
+                <h3 class="section-title" id="studentInfoTitle">Student Information</h3>
 
-                <label for="studentName" class="required">Student's Full Name</label>
+                <label for="studentName" class="required" id="studentNameLabel">Student's Full Name</label>
                 <input type="text" id="studentName" name="studentName" placeholder="Enter student's full name">
                 <div class="error-message" id="studentNameError"></div>
 
-                <label for="dob" class="required">Date of Birth</label>
+                <label for="dob" class="required" id="dobLabel">Date of Birth</label>
                 <input type="date" id="dob" name="dob">
                 <div class="error-message" id="dobError"></div>
 
-                <label class="required">Gender</label>
+                <label class="required" id="genderLabel">Gender</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="gender" value="male"> Male
+                        <input type="radio" name="gender" value="male"> <span id="genderMale">Male</span>
                     </label>
 
                     <label>
-                        <input type="radio" name="gender" value="female"> Female
+                        <input type="radio" name="gender" value="female"> <span id="genderFemale">Female</span>
                     </label>
                 </div>
                 <div class="error-message" id="genderError"></div>
 
-                <label for="classApplying" class="required">Class Applying For</label>
+                <label for="classApplying" class="required" id="classLabel">Class Applying For</label>
                 <select id="classApplying" name="classApplying">
-                    <option value="">Select class</option>
-                    <option>Pre-Primary</option>
-                    <option>Standard I</option>
-                    <option>Standard II</option>
-                    <option>Standard III</option>
-                    <option>Standard IV</option>
+                    <option value="" id="classPlaceholder">Select class</option>
+                    <option id="class1">Pre-Primary</option>
+                    <option id="class2">Standard I</option>
+                    <option id="class3">Standard II</option>
+                    <option id="class4">Standard III</option>
+                    <option id="class5">Standard IV</option>
                 </select>
                 <div class="error-message" id="classApplyingError"></div>
 
-                <label for="applicationType" class="required">Application Type</label>
+                <label for="applicationType" class="required" id="typeLabel">Application Type</label>
                 <select id="applicationType" name="applicationType">
-                    <option value="">Select application type</option>
-                    <option>New Admission</option>
-                    <option>Transfer Student</option>
+                    <option value="" id="typePlaceholder">Select application type</option>
+                    <option id="type1">New Admission</option>
+                    <option id="type2">Transfer Student</option>
                 </select>
                 <div class="error-message" id="applicationTypeError"></div>
 
-                <label for="previousSchool">Previous School (if applicable)</label>
+                <label for="previousSchool" id="previousSchoolLabel">Previous School (if applicable)</label>
                 <input type="text" id="previousSchool" name="previousSchool" placeholder="Previous school">
 
-                <h3 class="section-title">Parent / Guardian Information</h3>
+                <h3 class="section-title" id="parentInfoTitle">Parent / Guardian Information</h3>
 
-                <label for="parentName" class="required">Parent / Guardian Full Name</label>
+                <label for="parentName" class="required" id="parentNameLabel">Parent / Guardian Full Name</label>
                 <input type="text" id="parentName" name="parentName" placeholder="Enter full name">
                 <div class="error-message" id="parentNameError"></div>
 
-                <label for="phoneNumber" class="required">Phone Number</label>
+                <label for="phoneNumber" class="required" id="phoneLabel">Phone Number</label>
                 <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="0712345678 or +255712345678">
                 <div class="error-message" id="phoneNumberError"></div>
 
-                <label for="email">Email Address (optional)</label>
+                <label for="email" id="emailLabel">Email Address (optional)</label>
                 <input type="email" id="email" name="email" placeholder="example@email.com">
                 <div class="error-message" id="emailError"></div>
 
-                <button type="submit">Submit Application</button>
+                <button type="submit" id="submitBtn">Submit Application</button>
 
             </form>
 
-            <div class="notice">
+            <div class="notice" id="notice">
                 This is a demonstration form for testing. Information entered
                 here is not stored in any database.
             </div>
@@ -314,6 +352,69 @@
     </footer>
 
     <script>
+        const uiText = {
+            en: {
+                pageTitle: "Online Admission Application",
+                pageIntro: "Please complete the form below to apply for admission.",
+                studentInfoTitle: "Student Information",
+                dobLabel: "Date of Birth",
+                genderLabel: "Gender",
+                genderMale: "Male",
+                genderFemale: "Female",
+                classLabel: "Class Applying For",
+                classPlaceholder: "Select class",
+                class1: "Pre-Primary",
+                class2: "Standard I",
+                class3: "Standard II",
+                class4: "Standard III",
+                class5: "Standard IV",
+                typeLabel: "Application Type",
+                typePlaceholder: "Select application type",
+                type1: "New Admission",
+                type2: "Transfer Student",
+                studentNameLabel: "Student's Full Name",
+                previousSchoolLabel: "Previous School (if applicable)",
+                parentInfoTitle: "Parent / Guardian Information",
+                parentNameLabel: "Parent / Guardian Full Name",
+                phoneLabel: "Phone Number",
+                emailLabel: "Email Address (optional)",
+                submitBtn: "Submit Application",
+                notice: "This is a demonstration form for testing. Information entered here is not stored in any database.",
+                errorHeading: "Please fix the following errors:",
+                successText: "✓ Application submitted successfully! (Test mode - no data stored)"
+            },
+            sw: {
+                pageTitle: "Ombi la Kuingia Jioni",
+                pageIntro: "Tafadhali kamilisha fomu hii ili kuomba kuingia shule.",
+                studentInfoTitle: "Maelezo ya Mwanafunzi",
+                dobLabel: "Tarehe ya Kuzaliwa",
+                genderLabel: "Jinsia",
+                genderMale: "Kiume",
+                genderFemale: "Kike",
+                classLabel: "Darasa la Kuomba",
+                classPlaceholder: "Chagua darasa",
+                class1: "Kabla ya Shule Kuu",
+                class2: "Darasa la Kwanza",
+                class3: "Darasa la Pili",
+                class4: "Darasa la Tatu",
+                class5: "Darasa la Nne",
+                typeLabel: "Aina ya Ombi",
+                typePlaceholder: "Chagua aina ya ombi",
+                type1: "Kuingia Mpya",
+                type2: "Mwanafunzi wa Kuhamia",
+                studentNameLabel: "Jina Kamili la Mwanafunzi",
+                previousSchoolLabel: "Shule Iliyotangulia (ikiwezekana)",
+                parentInfoTitle: "Maelezo ya Mzazi / Mlezi",
+                parentNameLabel: "Jina Kamili la Mzazi / Mlezi",
+                phoneLabel: "Nambari ya Simu",
+                emailLabel: "Anwani ya Barua Pepe (si lazima)",
+                submitBtn: "Wasilisha Ombi",
+                notice: "Hii ni fomu ya kukamatia matokeo. Maelezo yaliyoingizwa hapa hayastoniwi katika hifadhi ya data.",
+                errorHeading: "Tafadhali rekebisha hitilafu zifuatazo:",
+                successText: "✓ Ombi limekamatia! (Hali ya majaribio - hakuna data iliyosafishwa)"
+            }
+        };
+
         const translations = {
             studentNameRequired: {
                 en: "Student's full name is required.",
@@ -350,6 +451,56 @@
         };
 
         let currentLanguage = 'en';
+
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+
+            // Update all UI text elements
+            document.getElementById('pageTitle').textContent = uiText[lang].pageTitle;
+            document.getElementById('pageIntro').textContent = uiText[lang].pageIntro;
+            document.getElementById('studentInfoTitle').textContent = uiText[lang].studentInfoTitle;
+            document.getElementById('studentNameLabel').textContent = uiText[lang].studentNameLabel;
+            document.getElementById('dobLabel').textContent = uiText[lang].dobLabel;
+            document.getElementById('genderLabel').textContent = uiText[lang].genderLabel;
+            document.getElementById('genderMale').textContent = uiText[lang].genderMale;
+            document.getElementById('genderFemale').textContent = uiText[lang].genderFemale;
+            document.getElementById('classLabel').textContent = uiText[lang].classLabel;
+            document.getElementById('classPlaceholder').textContent = uiText[lang].classPlaceholder;
+            document.getElementById('class1').textContent = uiText[lang].class1;
+            document.getElementById('class2').textContent = uiText[lang].class2;
+            document.getElementById('class3').textContent = uiText[lang].class3;
+            document.getElementById('class4').textContent = uiText[lang].class4;
+            document.getElementById('class5').textContent = uiText[lang].class5;
+            document.getElementById('typeLabel').textContent = uiText[lang].typeLabel;
+            document.getElementById('typePlaceholder').textContent = uiText[lang].typePlaceholder;
+            document.getElementById('type1').textContent = uiText[lang].type1;
+            document.getElementById('type2').textContent = uiText[lang].type2;
+            document.getElementById('previousSchoolLabel').textContent = uiText[lang].previousSchoolLabel;
+            document.getElementById('parentInfoTitle').textContent = uiText[lang].parentInfoTitle;
+            document.getElementById('parentNameLabel').textContent = uiText[lang].parentNameLabel;
+            document.getElementById('phoneLabel').textContent = uiText[lang].phoneLabel;
+            document.getElementById('emailLabel').textContent = uiText[lang].emailLabel;
+            document.getElementById('submitBtn').textContent = uiText[lang].submitBtn;
+            document.getElementById('notice').textContent = uiText[lang].notice;
+            document.getElementById('errorHeading').textContent = uiText[lang].errorHeading;
+            document.getElementById('successText').textContent = uiText[lang].successText;
+
+            // Update language switcher buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang === 'sw' ? 'sw-TZ' : 'en';
+        }
+
+        // Language switcher event listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                updateLanguage(this.dataset.lang);
+            });
+        });
 
         function isValidTanzanianPhone(phone) {
             const cleaned = phone.replace(/[\s-]/g, '');
